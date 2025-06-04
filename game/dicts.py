@@ -1,0 +1,18 @@
+CARD_DEFINITIONS = {
+    "Tiger":    {"moves": [(0, -2), (0, 1)],             "color": "blue"},
+    "Dragon":   {"moves": [(-2, -1), (2, -1), (-1, 1), (1, 1)], "color": "red"},
+    "Frog":     {"moves": [(-2, 0), (-1, 1), (1, -1)],    "color": "blue"},
+    "Rabbit":   {"moves": [(2, 0), (1, 1), (-1, -1)],     "color": "red"},
+    "Crab":     {"moves": [(-2, 0), (0, 1), (2, 0)],      "color": "blue"},
+    "Elephant": {"moves": [(-1, 1), (-1, 0), (1, 1), (1, 0)], "color": "red"},
+    "Goose":    {"moves": [(-1, 1), (-1, 0), (1, 0), (1, -1)], "color": "blue"},
+    "Rooster":  {"moves": [(-1, 0), (-1, -1), (1, 0), (1, 1)], "color": "red"},
+    "Monkey":   {"moves": [(-1, -1), (-1, 1), (1, -1), (1, 1)], "color": "red"},
+    "Mantis":   {"moves": [(-1, 1), (0, -1), (1, 1)],     "color": "blue"},
+    "Horse":    {"moves": [(0, -1), (-1, 0), (0, 1)],     "color": "red"},
+    "Ox":       {"moves": [(0, -1), (1, 0), (0, 1)],      "color": "blue"},
+    "Crane":    {"moves": [(0, -1), (-1, 1), (1, 1)],     "color": "blue"},
+    "Boar":     {"moves": [(-1, 0), (0, 1), (1, 0)],      "color": "red"},
+    "Eel":      {"moves": [(-1, -1), (-1, 1), (1, 0)],    "color": "blue"},
+    "Cobra":    {"moves": [(1, -1), (1, 1), (-1, 0)],     "color": "red"},
+}
