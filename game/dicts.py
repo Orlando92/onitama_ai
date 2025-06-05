@@ -16,3 +16,8 @@ CARD_DEFINITIONS = {
     "Eel":      {"moves": [(-1, -1), (-1, 1), (1, 0)],    "color": "blue"},
     "Cobra":    {"moves": [(1, -1), (1, 1), (-1, 0)],     "color": "red"},
 }
+
+MASTER_GOAL = [
+    (4, 2),  
+    (0, 2)   
+]

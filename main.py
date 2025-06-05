@@ -21,8 +21,8 @@ def main():
     if player_two_strategy_chosen == "minimax":
         player_two_strategy.set_params(player_two_minimax_params)
     
-    player_one = Player(config['player_one']['name'], 0, player_one_strategy)
-    player_two = Player(config['player_two']['name'], 1, player_two_strategy)
+    player_one = Player(0, config['player_one']['name'], player_one_strategy)
+    player_two = Player(1, config['player_two']['name'], player_two_strategy)
 
     game = Game([player_one, player_two], config['wait_for_input'])
     game.start()

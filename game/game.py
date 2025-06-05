@@ -40,13 +40,12 @@ class Game:
     def start(self):
         winner = None
         while winner == None:
-            GameUtils.draw_board(self.game_state.board)
             player = self.players[self.game_state.current_player_index]
             print(f"Current player: {player.name} (Player {self.game_state.current_player_index})")
             move = player.choose_move(self.game_state)
-            print(f"Player {self.game_state.current_player_index} chose move: {move.card.name} from {move.from_position} to {move.to_position}")
             self.apply_move(move)
-            winner = GameUtils.get_winner(self.game_state.board)
+            GameUtils.draw_board(self.game_state.board)
+            winner = GameUtils.get_winner(self.game_state.board, print_winner=True)
             if (self.wait_for_input):
                 input("Press Enter to continue...")
         print("winner", winner)

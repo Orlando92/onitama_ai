@@ -5,7 +5,7 @@ from game.move import Move
 
 class GameUtils:
     @staticmethod
-    def get_winner(board):
+    def get_winner(board, print_winner=False):
         p1_master_alive = False
         p2_master_alive = False
         p1_master_pos = None
@@ -21,12 +21,20 @@ class GameUtils:
                     p2_master_pos = (x, y)
 
         if not p2_master_alive:
+            if print_winner:
+                print("Player 1 Master got killed! Player 0 wins!")
             return 0
         if not p1_master_alive:
+            if print_winner:
+                print("Player 0 Master got killed! Player 1 wins!")
             return 1
         if p1_master_pos == (4, 2):
+            if print_winner:
+                print("Player 0 Master reached the goal! Player 0 wins!")
             return 0
-        if p2_master_pos == (2, 2):
+        if p2_master_pos == (0, 2):
+            if print_winner:
+                print("Player 1 Master reached the goal! Player 1 wins!")
             return 1
         return None
 
