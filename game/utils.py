@@ -5,11 +5,25 @@ from game.move import Move
 
 class GameUtils:
     @staticmethod
-    def get_winner(board, print_winner=False):
+    def get_winner(state, print_winner=False):
+        board = state.board
         p1_master_alive = False
         p2_master_alive = False
         p1_master_pos = None
         p2_master_pos = None
+
+        current_player_index = state.current_player_index
+
+        legal_moves = GameUtils.get_legal_moves(state)
+
+        if (len(legal_moves) == 0): 
+            if print_winner:
+                print(f"Player {current_player_index} has no legal moves left! Player {1 - current_player_index} wins!")
+            return 1 - current_player_index
+
+
+         
+
         for x in range(5):
             for y in range(5):
                 cell = board[x][y]
@@ -72,6 +86,7 @@ class GameUtils:
         player_index = state.current_player_index
         other_index = 1 - player_index
         card_used = move.card
+
         hand = list(state.cards[player_index])
         other_hand = list(state.cards[other_index])
         used_card = next(card for card in hand if card.name == card_used.name)
@@ -91,16 +106,17 @@ class GameUtils:
             cards_p1,
             cards_p2,
             used_card,
-            (player_index + 1) % 2
+            other_index 
         )
 
     @staticmethod
     def get_legal_moves(state):
+        # print("Calculating legal moves...")
         legal_moves = []
         board = state.board
         player_index = state.current_player_index
         hand = state.cards[player_index]
-
+        # print(f"Player {player_index} has cards: {[card.name for card in hand]}")
         for card in hand:
             for x in range(5):
                 for y in range(5):

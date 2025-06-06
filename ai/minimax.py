@@ -1,29 +1,48 @@
+import time
 
 from ai.strategy import Strategy
 from game.utils import GameUtils
 from game.dicts import MASTER_GOAL
 
+
 class Minimax(Strategy):
     def __init__(self):
         super().__init__()
         self.name = "Minimax Strategy"
+        self.stats = {
+            'nodes_evaluated': 0,
+            'time_taken': 0,
+        }
 
     def choose_move(self, state, player_index, depth=None):
+
+        self.stats['nodes_evaluated'] = 0  # Reset the nodes evaluated counter
+        start_time = time.time()
+
         if depth is None:
             depth = self.params.get('depth', 3)
+        # print(f"Choosing move for player {player_index} with depth {depth}")
         best_move = None
         best_score = float('-inf')
         for move in GameUtils.get_legal_moves(state):
+            # print(f"Evaluating move: {move.card.name} from {move.from_position} to {move.to_position}")
             new_state = GameUtils.apply_move(state, move)
+            # print(f"New state after move: {new_state.__dict__}")
             score = self.min_value(new_state, depth - 1, player_index)
+            # print(f"Score for move {move.card.name} from {move.from_position} to {move.to_position}: {score}")
             if score > best_score:
                 best_score = score
                 best_move = move
         print(f"Best move chosen by Minimax: {best_move.card.name} from {best_move.from_position} to {best_move.to_position} with score {best_score}")
-        return best_move
+        end_time = time.time()
+        self.stats['time_taken'] = end_time - start_time
+        return best_move, self.stats
 
     def min_value(self, state, depth, root_player_index):
-        winner = GameUtils.get_winner(state.board)
+
+        self.stats["nodes_evaluated"] += 1  # Incrementa el contador de nodos evaluados
+        # print(f"Min value called with depth {depth} for player {state.current_player_index}")
+        winner = GameUtils.get_winner(state)
         if depth == 0 or winner is not None:
             return self.evaluate_state(state, root_player_index)
 
@@ -36,7 +55,9 @@ class Minimax(Strategy):
         return v
 
     def max_value(self, state, depth, root_player_index):
-        winner = GameUtils.get_winner(state.board)
+        self.stats["nodes_evaluated"] += 1  # Incrementa el contador de nodos evaluados
+        # print(f"Max value called with depth {depth} for player {state.current_player_index}")
+        winner = GameUtils.get_winner(state)
         if depth == 0 or winner is not None:
             return self.evaluate_state(state, root_player_index)
 
@@ -56,7 +77,7 @@ class Minimax(Strategy):
 
         enemy_index = 1 - player_index
 
-        if(winner := GameUtils.get_winner(board)) is not None:
+        if(winner := GameUtils.get_winner(state)) is not None:
             return win if winner == player_index else -1 * win
         score = 0
 
